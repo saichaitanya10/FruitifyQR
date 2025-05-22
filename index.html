@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FruitifyQR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        header {
+            background-color: #ffa047;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .active {
+            background-color: #FF6347;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .hero {
+            background-color: #e9e9e9;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        /* Image Slider CSS */
+        .slider {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 300px;
+            margin: 20px auto 0;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+        
+        .slides {
+            width: 1000%;
+            height: 100%;
+            display: flex;
+        }
+        
+        .slide {
+            width: 10%;
+            transition: 0.6s;
+        }
+        
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* CSS for manual slide navigation */
+        .navigation-manual {
+            position: absolute;
+            width: 100%;
+            margin-top: -40px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .manual-btn {
+            border: 2px solid #FF6347;
+            padding: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 0 5px;
+        }
+        
+        .manual-btn:hover {
+            background: #FF6347;
+        }
+        
+        #radio1:checked ~ .first {
+            margin-left: 0;
+        }
+        
+        #radio2:checked ~ .first {
+            margin-left: -10%;
+        }
+        
+        #radio3:checked ~ .first {
+            margin-left: -20%;
+        }
+        
+        #radio4:checked ~ .first {
+            margin-left: -30%;
+        }
+        
+        #radio5:checked ~ .first {
+            margin-left: -40%;
+        }
+        
+        #radio6:checked ~ .first {
+            margin-left: -50%;
+        }
+        
+        #radio7:checked ~ .first {
+            margin-left: -60%;
+        }
+        
+        #radio8:checked ~ .first {
+            margin-left: -70%;
+        }
+        
+        #radio9:checked ~ .first {
+            margin-left: -80%;
+        }
+        
+        #radio10:checked ~ .first {
+            margin-left: -90%;
+        }
+        
+        /* Hide radio buttons */
+        .slides input {
+            display: none;
+        }
+        
+        /* CSS for automatic navigation */
+        .navigation-auto {
+            position: absolute;
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            margin-top: 260px;
+        }
+        
+        .navigation-auto div {
+            border: 2px solid #FF6347;
+            padding: 5px;
+            border-radius: 10px;
+            transition: 0.3s;
+            margin: 0 5px;
+        }
+        
+        #radio1:checked ~ .navigation-auto .auto-btn1,
+        #radio2:checked ~ .navigation-auto .auto-btn2,
+        #radio3:checked ~ .navigation-auto .auto-btn3,
+        #radio4:checked ~ .navigation-auto .auto-btn4,
+        #radio5:checked ~ .navigation-auto .auto-btn5,
+        #radio6:checked ~ .navigation-auto .auto-btn6,
+        #radio7:checked ~ .navigation-auto .auto-btn7,
+        #radio8:checked ~ .navigation-auto .auto-btn8,
+        #radio9:checked ~ .navigation-auto .auto-btn9,
+        #radio10:checked ~ .navigation-auto .auto-btn10 {
+            background: #FF6347;
+        }
+        
+        /* Slider control buttons (prev/next) */
+        .slider-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+        
+        .slider-controls button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .fruit-cards {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .fruit-card {
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .fruit-card:hover {
+            transform: translateY(-5px);
+        }
+        .card-image {
+            height: 150px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .card-image img {
+            width: 110%;
+            height: 110%;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: 15px;
+        }
+        .card-content h3 {
+            margin-top: 0;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #2A7B9B;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #e74c3c;
+            
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FruitifyQR</h1>
+    </header>
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="./Fruits/apple.html">Apple</a>
+        <a href="./Fruits/banana.html">Banana</a>
+        <a href="./Fruits/lychee.html">Lychee</a>
+        <a href="./Fruits/mango.html">Mango</a>
+        <a href="./Fruits/jackfruit.html">Jack Fruit</a>
+        <a href="./Fruits/jamun.html">Jamun</a>
+        <a href="./Fruits/guava.html">Guava</a>
+        <a href="./Fruits/custardapple.html">Custard Apple</a>
+        <a href="./Fruits/kiwi.html">Kiwi</a>
+        <a href="./Fruits/orange.html">Orange</a>
+    </nav>
+    
+    <div class="container">
+        <div class="hero">
+            <h2>In today’s digital age, we believe that even the simplest things — like fruits — deserve to be smarter.</h2>
+            <p>FruitifyQR bridges the gap between the farm and your plate by giving you instant access to verified, detailed information about every fruit you buy.</p>
+            <p>Browse through our collection of fruits to learn more about your favorites or discover new ones!</p>
+            
+            <!-- Image Slider -->
+            <div class="slider">
+                <div class="slides">
+                    <!-- Radio buttons for manual navigation -->
+                    <input type="radio" name="radio-btn" id="radio1" checked>
+                    <input type="radio" name="radio-btn" id="radio2">
+                    <input type="radio" name="radio-btn" id="radio3">
+                    <input type="radio" name="radio-btn" id="radio4">
+                    <input type="radio" name="radio-btn" id="radio5">
+                    <input type="radio" name="radio-btn" id="radio6">
+                    <input type="radio" name="radio-btn" id="radio7">
+                    <input type="radio" name="radio-btn" id="radio8">
+                    <input type="radio" name="radio-btn" id="radio9">
+                    <input type="radio" name="radio-btn" id="radio10">
+                    
+                    <!-- Slide images -->
+                    <div class="slide first">
+                        <img src="/api/placeholder/800/300" alt="Fruit 1">
+                    </div>
+                    <div class="slide">
+                        <img src="/api/placeholder/800/300" alt="Fruit 2">
+                    </div>
+                    <div class="slide">
+                        <img src="/api/placeholder/800/300" alt="Fruit 3">
+                    </div>
+                    <div class="slide">
+                        <img src="/api/placeholder/800/300" alt="Fruit 4">
+                    </div>
+                    <div class="slide">
+                        <img src="/api/placeholder/800/300" alt="Fruit 5">
+                    </div>
+                    <div class="slide">
+                        <img src="/api/placeholder/800/300" alt="Fruit 6">
+                    </div>
+                    <div class="slide">
+                        <img src="/api/placeholder/800/300" alt="Fruit 7">
+                    </div>
+                    <div class="slide">
+                        <img src="/api/placeholder/800/300" alt="Fruit 8">
+                    </div>
+                    <div class="slide">
+                        <img src="/api/placeholder/800/300" alt="Fruit 9">
+                    </div>
+                    <div class="slide">
+                        <img src="/api/placeholder/800/300" alt="Fruit 10">
+                    </div>
+                    
+                    <!-- Automatic navigation -->
+                    <div class="navigation-auto">
+                        <div class="auto-btn1"></div>
+                        <div class="auto-btn2"></div>
+                        <div class="auto-btn3"></div>
+                        <div class="auto-btn4"></div>
+                        <div class="auto-btn5"></div>
+                        <div class="auto-btn6"></div>
+                        <div class="auto-btn7"></div>
+                        <div class="auto-btn8"></div>
+                        <div class="auto-btn9"></div>
+                        <div class="auto-btn10"></div>
+                    </div>
+                </div>
+                
+                <!-- Manual navigation -->
+                <div class="navigation-manual">
+                    <label for="radio1" class="manual-btn"></label>
+                    <label for="radio2" class="manual-btn"></label>
+                    <label for="radio3" class="manual-btn"></label>
+                    <label for="radio4" class="manual-btn"></label>
+                    <label for="radio5" class="manual-btn"></label>
+                    <label for="radio6" class="manual-btn"></label>
+                    <label for="radio7" class="manual-btn"></label>
+                    <label for="radio8" class="manual-btn"></label>
+                    <label for="radio9" class="manual-btn"></label>
+                    <label for="radio10" class="manual-btn"></label>
+                </div>
+                
+                <!-- Prev/Next buttons -->
+                <div class="slider-controls">
+                    <button onclick="prevSlide()">&#10094;</button>
+                    <button onclick="nextSlide()">&#10095;</button>
+                </div>
+                
+                <script>
+                    // JavaScript for handling next/previous buttons
+                    function nextSlide() {
+                        const radios = document.getElementsByName('radio-btn');
+                        let currentIndex = 0;
+                        
+                        // Find which radio is currently checked
+                        for (let i = 0; i < radios.length; i++) {
+                            if (radios[i].checked) {
+                                currentIndex = i;
+                                break;
+                            }
+                        }
+                        
+                        // Move to next slide
+                        const nextIndex = (currentIndex + 1) % radios.length;
+                        radios[nextIndex].checked = true;
+                    }
+                    
+                    function prevSlide() {
+                        const radios = document.getElementsByName('radio-btn');
+                        let currentIndex = 0;
+                        
+                        // Find which radio is currently checked
+                        for (let i = 0; i < radios.length; i++) {
+                            if (radios[i].checked) {
+                                currentIndex = i;
+                                break;
+                            }
+                        }
+                        
+                        // Move to previous slide
+                        const prevIndex = (currentIndex - 1 + radios.length) % radios.length;
+                        radios[prevIndex].checked = true;
+                    }
+                </script>
+            </div>
+        </div>
+        
+        <h2>Featured Fruits</h2>
+        <div class="fruit-cards">
+            <div class="fruit-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/162709/apple-red-fruit-fruits-162709.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Apple Image Placeholder">
+                </div>
+                <div class="card-content">
+                    <h3>Apple</h3>
+                    <p>Apples are crisp, juicy fruits known for their versatility and nutritional benefits. They come in a variety of colors and flavors.</p>
+                    <a href="./Fruits/apple.html" class="btn">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="fruit-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/2238309/pexels-photo-2238309.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Banana Image Placeholder">
+                </div>
+                <div class="card-content">
+                    <h3>Banana</h3>
+                    <p>Bananas are sweet, soft fruits rich in potassium and fiber. They're one of the most popular fruits worldwide.</p>
+                    <a href="./Fruits/banana.html" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <div class="fruit-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/39288/lychee-fruit-fresh-food-39288.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Lychee Image Placeholder">
+                </div>
+                <div class="card-content">
+                    <h3>Lychee</h3>
+                    <p>Lychees are small, sweet fruits with translucent white flesh and a floral flavor. They're popular in Asian cuisines.</p>
+                    <a href="./Fruits/lychee.html" class="btn">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="fruit-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/4955253/pexels-photo-4955253.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Mango Image Placeholder">
+                </div>
+                <div class="card-content">
+                    <h3>Mango</h3>
+                    <p>Mangoes are juicy stone fruits known for their sweet flavor and vibrant color. They're often called the "king of fruits".</p>
+                    <a href="./Fruits/mango.html" class="btn">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="fruit-card">
+                <div class="card-image">
+                    <img src="https://aranyaani.in/cdn/shop/products/Jackfruit_800x.png?v=1575965093" alt="Jackfruit Image Placeholder">
+                </div>
+                <div class="card-content">
+                    <h3>Jack Fruit</h3>
+                    <p>Jackfruit is the largest tree fruit in the world with a unique texture. When ripe it's sweet, and unripe it's used as a meat substitute.</p>
+                    <a href="./Fruits/jackfruit.html" class="btn">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="fruit-card">
+                <div class="card-image">
+                    <img src="https://th-i.thgim.com/public/sci-tech/science/wjr1o/article52472749.ece/alternates/FREE_1200/JAMUN" alt="Jamun Image Placeholder">
+                </div>
+                <div class="card-content">
+                    <h3>Jamun</h3>
+                    <p>Jamun is a purple, oblong tropical fruit with a sweet-sour taste. It has numerous health benefits and is used in traditional medicine.</p>
+                    <a href="./Fruits/jamun.html" class="btn">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="fruit-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/5945791/pexels-photo-5945791.jpeg?auto=compress&cs=tinysrgb&w=1400&h=800&dpr=2" alt="Guava Image Placeholder">
+                </div>
+                <div class="card-content">
+                    <h3>Guava</h3>
+                    <p>Guava is a tropical fruit with edible seeds and a sweet, aromatic flavor. It's exceptionally rich in vitamin C and antioxidants.</p>
+                    <a href="./Fruits/guava.html" class="btn">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="fruit-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/30963856/pexels-photo-30963856/free-photo-of-vibrant-fresh-fruit-market-stall-display.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Custard Apple Image Placeholder">
+                </div>
+                <div class="card-content">
+                    <h3>Custard Apple</h3>
+                    <p>Custard apple has a creamy, sweet flesh with a unique flavor similar to custard. It's rich in vitamins and minerals.</p>
+                    <a href="./Fruits/custardapple.html" class="btn">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="fruit-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/867349/pexels-photo-867349.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Kiwi Image Placeholder">
+                </div>
+                <div class="card-content">
+                    <h3>Kiwi</h3>
+                    <p>Kiwi fruits are small berries with bright green flesh, tiny black seeds, and a sweet-tart flavor. They're packed with vitamin C.</p>
+                    <a href="./Fruits/kiwi.html" class="btn">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="fruit-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/2135677/pexels-photo-2135677.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Orange Image Placeholder">
+                </div>
+                <div class="card-content">
+                    <h3>Orange</h3>
+                    <p>Oranges are citrus fruits known for their high vitamin C content and refreshing taste. They're one of the most popular fruits worldwide.</p>
+                    <a href="./Fruits/orange.html" class="btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

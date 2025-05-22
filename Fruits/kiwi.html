@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiwi - The Nutrient Powerhouse</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #eeeeed;
+            /* Added padding to account for fixed navbar */
+            padding-top: 33px;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Glass Navbar - Fixed and Reduced Height */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(180, 180, 180, 0.12);
+            backdrop-filter: blur(10px); /* Glass effect */
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 0; /* Reduced padding */
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px; /* Reduced height */
+        }
+        
+        .logo {
+            font-size: 1.4rem; /* Reduced font size */
+            font-weight: bold;
+            color: #3c2020;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            height: 100%;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .nav-links a {
+            color: black;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1rem; /* Reduced font size */
+            letter-spacing: 0.5px;
+            padding: 0 5px;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 60px; /* Match new navbar height */
+            background-color: rgba(44, 62, 80, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dropdown-content a {
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: rgba(26, 37, 47, 0.8);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        /* Fruit Page Content */
+        .fruit-header {
+            background-color: #76B947;
+            color: #fff;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .fruit-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .fruit-content {
+            padding: 3rem 0;
+            background-color: #fff;
+        }
+        
+        .fruit-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .fruit-image {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .fruit-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .fruit-info h2 {
+            color: #FF7F00;
+            margin-bottom: 1rem;
+        }
+        
+        .info-section {
+            margin-bottom: 2rem;
+        }
+        
+        .info-section h3 {
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .info-section ul {
+            list-style-position: inside;
+            margin-left: 1rem;
+        }
+        
+        .info-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a252f;
+            color: #fff;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Back to Home Button */
+        .back-home {
+            display: inline-block;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            margin-top: 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .back-home:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .fruit-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .fruit-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Kiwi - The Nutrient Powerhouse</div>
+                <ul class="nav-links">
+                    <li><a href="/index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#">Fruits</a>
+                        <div class="dropdown-content">
+                            <a href="mango.html">Mango</a>
+                            <a href="jackfruit.html">Jackfruit</a>
+                            <a href="lychee.html">Lychee</a>
+                            <a href="jamun.html">Jamun</a>
+                            <a href="guava.html">Guava</a>
+                            <a href="custardapple.html">Custard Apple</a>
+                            <a href="banana.html">Banana</a>
+                            <a href="apple.html">Apple</a>
+                            <a href="kiwi.html">Kiwi</a>
+                            <a href="orange.html">Orange</a>
+                        </div>
+                    </li>
+                    <!-- <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li> -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Fruit Header -->
+    <section class="fruit-header">
+        <div class="container">
+            <h1>Kiwi - The Nutrient Powerhouse</h1>
+            <p>A small fruit with big nutritional benefits and exotic flavor</p>
+        </div>
+    </section>
+
+    <!-- Fruit Content -->
+    <section class="fruit-content">
+        <div class="container">
+            <div class="fruit-grid">
+                <div class="fruit-image">
+                    <img src="https://images.pexels.com/photos/5945715/pexels-photo-5945715.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Kiwi Fruit">
+                </div>
+                <div class="fruit-info">
+                    <h2>About Kiwi</h2>
+                    <p>Kiwi (Actinidia deliciosa), also known as Chinese gooseberry, is a nutrient-dense fruit with a fuzzy brown exterior and bright green flesh studded with tiny black seeds. Originally from China, it was later cultivated extensively in New Zealand, which gave the fruit its popular name after their national bird.</p>
+                    <br>
+                    <p>Though not native to India, kiwi cultivation has gained popularity in the cooler Himalayan regions, particularly in Himachal Pradesh, Uttarakhand, Sikkim, and Arunachal Pradesh. This versatile fruit is appreciated for its unique sweet-tart flavor and exceptional nutritional profile.</p>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Varieties of Kiwi in India</h3>
+                <ul>
+                    <li><strong>Hayward</strong> - The most common commercial variety with oval shape and fuzzy brown skin</li>
+                    <li><strong>Abbott</strong> - Known for its cylindrical shape and sweet taste</li>
+                    <li><strong>Bruno</strong> - Elongated fruit with good shelf life</li>
+                    <li><strong>Monty</strong> - Earlier ripening variety with good flavor</li>
+                    <li><strong>Allison</strong> - Productive variety adapted to Indian conditions</li>
+                    <li><strong>Golden Kiwi</strong> - Yellow flesh variety with sweeter taste and smooth skin</li>
+                </ul>
+            </div>
+            
+            <div class="info-section">
+                <h3>Nutritional Benefits</h3>
+                <p>Kiwi is renowned for its exceptional nutritional profile:</p>
+                <ul>
+                    <li>Extremely high in vitamin C - more than oranges by weight</li>
+                    <li>Good source of dietary fiber that promotes digestive health</li>
+                    <li>Rich in vitamin K, vitamin E, and folate</li>
+                    <li>Contains potassium, vital for heart health and blood pressure regulation</li>
+                    <li>Packed with antioxidants that combat oxidative stress</li>
+                    <li>Low in calories with a low glycemic index</li>
+                    <li>Contains enzymes like actinidin that aid protein digestion</li>
+                    <li>Provides natural prebiotics that support gut bacteria</li>
+                </ul>
+                <p>In traditional medicine, kiwi is valued for its ability to support respiratory health and boost immunity.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Cultural Significance</h3>
+                <p>Though relatively new to Indian agriculture:</p>
+                <ul>
+                    <li>Kiwi cultivation has transformed the economies of several Himalayan villages</li>
+                    <li>It has become an important cash crop for farmers in states like Himachal Pradesh</li>
+                    <li>The fruit has gained popularity as a "super food" in urban Indian markets</li>
+                    <li>Kiwi's introduction has diversified Indian fruit consumption patterns</li>
+                    <li>It has become a symbol of agricultural innovation and adaptation in hill regions</li>
+                </ul>
+            </div>
+            
+            <div class="info-section">
+                <h3>Culinary Uses</h3>
+                <p>Kiwi's versatility makes it popular in various culinary applications:</p>
+                <ul>
+                    <li><strong>Fresh Consumption</strong> - Eaten halved with a spoon or sliced after peeling</li>
+                    <li><strong>Fruit Salads</strong> - Adds bright color and tangy flavor</li>
+                    <li><strong>Smoothies and Juices</strong> - Popular ingredient in health drinks</li>
+                    <li><strong>Dessert Toppings</strong> - Used on pavlovas, cheesecakes, and tarts</li>
+                    <li><strong>Kiwi Chutney</strong> - A modern twist on traditional Indian condiments</li>
+                    <li><strong>Meat Tenderizer</strong> - The actinidin enzyme helps tenderize proteins</li>
+                    <li><strong>Kiwi Sorbet</strong> - A refreshing frozen dessert</li>
+                    <li><strong>Jams and Preserves</strong> - Makes distinctive spreads</li>
+                </ul>
+                <p>Interestingly, kiwi can be used as a natural meat tenderizer due to its active enzymes.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Growing Season</h3>
+                <p>In India, kiwi is harvested from September to December in most growing regions. The plants require a period of winter chilling, which limits commercial cultivation to higher altitude areas in the Himalayan states.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Interesting Facts</h3>
+                <ul>
+                    <li>Kiwi fruits grow on woody vines that can reach up to 30 feet in length</li>
+                    <li>Most commercial kiwi plants are dioecious, requiring both male and female plants for fruit production</li>
+                    <li>The fruit was originally called "yang tao" in China</li>
+                    <li>New Zealand exporters renamed it "kiwifruit" after the national bird due to similar appearance</li>
+                    <li>A single kiwi contains more vitamin C than an equivalent amount of orange</li>
+                    <li>The entire fruit, including the skin, is edible (though most people prefer to peel it)</li>
+                    <li>Kiwi plants can live for up to 50 years with proper care</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="/index.html" class="back-home">Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <p>&copy; 2025 Indian Fruits. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

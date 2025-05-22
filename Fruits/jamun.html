@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jamun - The Black Plum</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #eeeeed;
+            /* Added padding to account for fixed navbar */
+            padding-top: 33px;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Glass Navbar - Fixed and Reduced Height */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(180, 180, 180, 0.12);
+            backdrop-filter: blur(10px); /* Glass effect */
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 0; /* Reduced padding */
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px; /* Reduced height */
+        }
+        
+        .logo {
+            font-size: 1.4rem; /* Reduced font size */
+            font-weight: bold;
+            color: #3c2020;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            height: 100%;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .nav-links a {
+            color: black;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1rem; /* Reduced font size */
+            letter-spacing: 0.5px;
+            padding: 0 5px;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 60px; /* Match new navbar height */
+            background-color: rgba(44, 62, 80, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dropdown-content a {
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: rgba(26, 37, 47, 0.8);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        /* Fruit Page Content */
+        .fruit-header {
+            background-color: #5D3754;
+            color: #fff;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .fruit-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .fruit-content {
+            padding: 3rem 0;
+            background-color: #fff;
+        }
+        
+        .fruit-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .fruit-image {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .fruit-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .fruit-info h2 {
+            color: #FF7F00;
+            margin-bottom: 1rem;
+        }
+        
+        .info-section {
+            margin-bottom: 2rem;
+        }
+        
+        .info-section h3 {
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .info-section ul {
+            list-style-position: inside;
+            margin-left: 1rem;
+        }
+        
+        .info-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a252f;
+            color: #fff;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Back to Home Button */
+        .back-home {
+            display: inline-block;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            margin-top: 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .back-home:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .fruit-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .fruit-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Jamun - The Black Plum</div>
+                <ul class="nav-links">
+                    <li><a href="/index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#">Fruits</a>
+                        <div class="dropdown-content">
+                            <a href="mango.html">Mango</a>
+                            <a href="jackfruit.html">Jackfruit</a>
+                            <a href="lychee.html">Lychee</a>
+                            <a href="jamun.html">Jamun</a>
+                            <a href="guava.html">Guava</a>
+                            <a href="custardapple.html">Custard Apple</a>
+                            <a href="banana.html">Banana</a>
+                            <a href="apple.html">Apple</a>
+                            <a href="kiwi.html">Kiwi</a>
+                            <a href="orange.html">Orange</a>
+                        </div>
+                    </li>
+                    <!-- <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li> -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Fruit Header -->
+    <section class="fruit-header">
+        <div class="container">
+            <h1>Jamun - The Black Plum</h1>
+            <p>A distinctive summer fruit with powerful medicinal properties</p>
+        </div>
+    </section>
+
+    <!-- Fruit Content -->
+    <section class="fruit-content">
+        <div class="container">
+            <div class="fruit-grid">
+                <div class="fruit-image">
+                    <img src="https://media.istockphoto.com/id/1318256879/photo/closeup-black-plum-java-plum-purple-fruits.jpg?s=2048x2048&w=is&k=20&c=tau0e4N9YoLbUpkBFjxaBcVQXXCtbPpMQoxmmtGv9QY=" alt="Jamun">
+                </div>
+                <div class="fruit-info">
+                    <h2>About Jamun</h2>
+                    <p>Jamun (Syzygium cumini), also known as Java Plum, Black Plum, or Indian Blackberry, is an evergreen tropical tree native to the Indian subcontinent. The tree belongs to the Myrtaceae family and is known for its purple-black berries that ripen during the monsoon season.</p>
+                    <br>
+                    <p>In various Indian languages, it is known as "Jamun" in Hindi, "Neredu" in Telugu, "Naval" in Tamil, "Njaval" in Malayalam, and "Jambu" in Gujarati. This fruit has been cultivated in India for thousands of years and is mentioned in ancient Ayurvedic texts for its medicinal properties.</p>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Varieties of Jamun in India</h3>
+                <ul>
+                    <li><strong>Ra Jamun</strong> - A large-fruited variety with sweet pulp</li>
+                    <li><strong>Banarasi Jamun</strong> - Known for its large size and less astringent flavor</li>
+                    <li><strong>Deshi Jamun</strong> - Smaller in size but with concentrated flavor</li>
+                    <li><strong>Paras Jamun</strong> - Features a good ratio of pulp to seed</li>
+                    <li><strong>CISH J-37</strong> - A variety developed by the Central Institute for Subtropical Horticulture</li>
+                </ul>
+            </div>
+            
+            <div class="info-section">
+                <h3>Medicinal Properties and Health Benefits</h3>
+                <p>Jamun is renowned for its remarkable medicinal properties, especially for diabetes management:</p>
+                <ul>
+                    <li>Contains jamboline, which helps regulate blood sugar levels</li>
+                    <li>Rich in anthocyanins with potent antioxidant properties</li>
+                    <li>Has antimicrobial and anti-inflammatory properties</li>
+                    <li>Good source of iron, helping with anemia prevention</li>
+                    <li>Contains vitamin C and minerals like potassium and magnesium</li>
+                    <li>Beneficial for digestive health due to its astringent properties</li>
+                    <li>Traditionally used for oral health due to its antibacterial qualities</li>
+                </ul>
+                <p>In Ayurveda, all parts of the jamun tree—including the fruit, seeds, leaves, and bark—are used for various medicinal preparations. The powdered seeds, in particular, are widely used in traditional medicine to manage diabetes.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Cultural Significance</h3>
+                <p>Jamun holds cultural importance in India:</p>
+                <ul>
+                    <li>In Hindu mythology, Lord Krishna is often associated with jamun fruit</li>
+                    <li>The jamun tree is considered sacred in many regions</li>
+                    <li>Its appearance during monsoon season is celebrated in various folk songs</li>
+                    <li>The distinctive purple stain it leaves on the tongue is a nostalgic childhood memory for many Indians</li>
+                    <li>Jamun trees are often planted in public spaces for shade and fruit</li>
+                </ul>
+            </div>
+            
+            <div class="info-section">
+                <h3>Culinary Uses</h3>
+                <p>Although primarily enjoyed fresh, jamun is used in various culinary preparations:</p>
+                <ul>
+                    <li><strong>Fresh Consumption</strong> - Most commonly eaten fresh, often sprinkled with rock salt</li>
+                    <li><strong>Jamun Wine</strong> - A traditional fermented beverage</li>
+                    <li><strong>Jamun Squash</strong> - A refreshing concentrated syrup</li>
+                    <li><strong>Jamun Jam and Jelly</strong> - Popular preserves with a unique flavor</li>
+                    <li><strong>Jamun Kulfi</strong> - An Indian frozen dessert featuring jamun pulp</li>
+                    <li><strong>Jamun Vinegar</strong> - Used in chutneys and pickles</li>
+                    <li><strong>Jamun Sherbet</strong> - A cooling summer drink</li>
+                </ul>
+                <p>The seed is usually discarded when eating the fruit but is dried and powdered for use in traditional medicine.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Growing Season</h3>
+                <p>In India, jamun typically fruits during the summer and monsoon seasons, from June to August. The timing coincides with the arrival of monsoon rains in most parts of India, making it a welcome refreshment during the hot and humid weather.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Interesting Facts</h3>
+                <ul>
+                    <li>The jamun tree can grow up to 30 meters tall and live for more than a century</li>
+                    <li>It's one of the few fruits that ripens just as the monsoon begins</li>
+                    <li>The fruit turns from green to deep purple-black when ripe</li>
+                    <li>The astringent taste of jamun comes from its high tannin content</li>
+                    <li>Unlike many fruits, jamun is not often cultivated in orchards but grows wild or is planted along roadsides and in home gardens</li>
+                    <li>The wood of the jamun tree is water-resistant and used for construction</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="/index.html" class="back-home">Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <p>&copy; 2025 Indian Fruits. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

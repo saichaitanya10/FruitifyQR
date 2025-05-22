@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple - The Versatile Fruit</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #eeeeed;
+            /* Added padding to account for fixed navbar */
+            padding-top: 33px;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Glass Navbar - Fixed and Reduced Height */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(180, 180, 180, 0.12);
+            backdrop-filter: blur(10px); /* Glass effect */
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 0; /* Reduced padding */
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px; /* Reduced height */
+        }
+        
+        .logo {
+            font-size: 1.4rem; /* Reduced font size */
+            font-weight: bold;
+            color: #3c2020;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            height: 100%;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .nav-links a {
+            color: black;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1rem; /* Reduced font size */
+            letter-spacing: 0.5px;
+            padding: 0 5px;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 60px; /* Match new navbar height */
+            background-color: rgba(44, 62, 80, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dropdown-content a {
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: rgba(26, 37, 47, 0.8);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        /* Fruit Page Content */
+        .fruit-header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .fruit-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .fruit-content {
+            padding: 3rem 0;
+            background-color: #fff;
+        }
+        
+        .fruit-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .fruit-image {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .fruit-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .fruit-info h2 {
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+        
+        .info-section {
+            margin-bottom: 2rem;
+        }
+        
+        .info-section h3 {
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .info-section ul {
+            list-style-position: inside;
+            margin-left: 1rem;
+        }
+        
+        .info-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a252f;
+            color: #fff;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Back to Home Button */
+        .back-home {
+            display: inline-block;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            margin-top: 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .back-home:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .fruit-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .fruit-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Apple - The Versatile Fruit</div>
+                <ul class="nav-links">
+                    <li><a href="/index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#">Fruits</a>
+                        <div class="dropdown-content">
+                            <a href="mango.html">Mango</a>
+                            <a href="jackfruit.html">Jackfruit</a>
+                            <a href="lychee.html">Lychee</a>
+                            <a href="jamun.html">Jamun</a>
+                            <a href="guava.html">Guava</a>
+                            <a href="custardapple.html">Custard Apple</a>
+                            <a href="banana.html">Banana</a>
+                            <a href="apple.html">Apple</a>
+                            <a href="kiwi.html">Kiwi</a>
+                            <a href="orange.html">Orange</a>
+                        </div>
+                    </li>
+                    <!-- <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li> -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Fruit Header -->
+    <section class="fruit-header">
+        <div class="container">
+            <h1>Apple - The Versatile Fruit</h1>
+            <p>A nutrient-rich fruit enjoyed worldwide in countless culinary applications</p>
+        </div>
+    </section>
+
+    <!-- Fruit Content -->
+    <section class="fruit-content">
+        <div class="container">
+            <div class="fruit-grid">
+                <div class="fruit-image">
+                    <img src="https://images.pexels.com/photos/574919/pexels-photo-574919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Apple">
+                </div>
+                <div class="fruit-info">
+                    <h2>About Apples</h2>
+                    <p>Apples (Malus domestica) are one of the most widely cultivated tree fruits in the world, belonging to the Rosaceae family. Originally from Central Asia, apples have been grown for thousands of years and have spread to nearly every corner of the globe, with more than 7,500 known varieties.</p>
+                    <br>
+                    <p>In different languages, apples are known as "Pomme" in French, "Manzana" in Spanish, "Apfel" in German, and "Seb" in Hindi. The apple tree is a deciduous tree that can grow to heights of 3-12 meters (10-40 feet), with a broad, often densely branched structure.</p>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Popular Apple Varieties</h3>
+                <ul>
+                    <li><strong>Red Delicious</strong> - Known for its deep red color and distinctive heart shape with five bumps at the bottom</li>
+                    <li><strong>Granny Smith</strong> - Bright green color with a tart, acidic flavor, excellent for baking</li>
+                    <li><strong>Gala</strong> - Sweet, aromatic flavor with a striking red-orange striped appearance</li>
+                    <li><strong>Fuji</strong> - Developed in Japan, these apples are sweet, crisp and have excellent storage qualities</li>
+                    <li><strong>Honeycrisp</strong> - Exceptionally crisp and juicy texture with a balanced sweet-tart flavor</li>
+                    <li><strong>Golden Delicious</strong> - Yellow-green skin with a sweet, mellow flavor</li>
+                    <li><strong>Pink Lady</strong> - Distinctive pink blush over a green background with a sweet-tart flavor</li>
+                </ul>
+            </div>
+            
+            <div class="info-section">
+                <h3>Nutritional Benefits</h3>
+                <p>Apples are packed with important nutrients and offer numerous health benefits:</p>
+                <ul>
+                    <li>Excellent source of dietary fiber, particularly pectin, which aids digestion</li>
+                    <li>Rich in antioxidants including quercetin, catechin, and chlorogenic acid</li>
+                    <li>Contains vitamin C, supporting immune function</li>
+                    <li>Good source of potassium and vitamin K</li>
+                    <li>Low in calories, with a medium apple containing about 95 calories</li>
+                    <li>May help reduce the risk of chronic diseases such as heart disease, certain cancers, and type 2 diabetes</li>
+                    <li>Contains compounds that support gut health and may help prevent obesity</li>
+                </ul>
+                <p>The old adage "an apple a day keeps the doctor away" has some scientific merit, as regular apple consumption has been linked to a lower risk of several major diseases.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Cultural Significance</h3>
+                <p>Apples have profound cultural importance around the world:</p>
+                <ul>
+                    <li>Symbol in biblical tradition as the "forbidden fruit" in the Garden of Eden</li>
+                    <li>Feature prominently in fairy tales and folklore (Snow White, William Tell)</li>
+                    <li>Represent knowledge and education in many cultures</li>
+                    <li>In Greek mythology, golden apples appear in several stories</li>
+                    <li>The apple is a traditional gift for teachers in many countries</li>
+                    <li>New York City is nicknamed "The Big Apple"</li>
+                    <li>Apple computers named their company after the fruit, with a bite taken out as their logo</li>
+                </ul>
+            </div>
+            
+            <div class="info-section">
+                <h3>Culinary Uses</h3>
+                <p>Apples are incredibly versatile in the kitchen and are used in countless dishes:</p>
+                <ul>
+                    <li><strong>Fresh Consumption</strong> - Eaten raw as a snack or in salads</li>
+                    <li><strong>Baked Goods</strong> - Apple pies, tarts, cakes, muffins, and strudels</li>
+                    <li><strong>Sauces</strong> - Applesauce and apple butter</li>
+                    <li><strong>Beverages</strong> - Apple juice, cider, and alcoholic drinks like hard cider and apple brandy</li>
+                    <li><strong>Preserves</strong> - Jams, jellies, and chutneys</li>
+                    <li><strong>Dried Apples</strong> - Snacks and ingredients in cereals and baked goods</li>
+                    <li><strong>Savory Dishes</strong> - Pork with apples, apple stuffing, and waldorf salad</li>
+                </ul>
+                <p>Different varieties of apples are suited to different culinary purposes. Firmer, tart apples like Granny Smith are ideal for baking, while sweeter varieties like Gala and Fuji are perfect for eating fresh.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Growing Season</h3>
+                <p>In the Northern Hemisphere, the main apple harvesting season typically runs from late summer through fall (August to November), though this varies by variety and climate. Some early varieties may be ready in July, while late-season varieties might not be harvested until early winter. In the Southern Hemisphere, the seasons are reversed, with harvests occurring from February to May.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Interesting Facts</h3>
+                <ul>
+                    <li>Apples float in water because 25% of their volume is air</li>
+                    <li>China is the world's largest producer of apples</li>
+                    <li>It takes about 36 apples to create one gallon of apple cider</li>
+                    <li>The science of apple growing is called "pomology"</li>
+                    <li>Apple trees can live for more than 100 years</li>
+                    <li>The largest apple ever picked weighed approximately 4 pounds (1.8 kg)</li>
+                    <li>Apples are members of the rose family, along with pears, cherries, and almonds</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="/index.html" class="back-home">Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <p>&copy; 2025 World Fruits. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banana - Nature's Energy Package</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #eeeeed;
+            /* Added padding to account for fixed navbar */
+            padding-top: 33px;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Glass Navbar - Fixed and Reduced Height */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(180, 180, 180, 0.12);
+            backdrop-filter: blur(10px); /* Glass effect */
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 0; /* Reduced padding */
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px; /* Reduced height */
+        }
+        
+        .logo {
+            font-size: 1.4rem; /* Reduced font size */
+            font-weight: bold;
+            color: #3c2020;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            height: 100%;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .nav-links a {
+            color: black;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1rem; /* Reduced font size */
+            letter-spacing: 0.5px;
+            padding: 0 5px;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 60px; /* Match new navbar height */
+            background-color: rgba(44, 62, 80, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dropdown-content a {
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: rgba(26, 37, 47, 0.8);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        /* Fruit Page Content */
+        .fruit-header {
+            background-color: #FFD700;
+            color: #fff;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .fruit-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .fruit-content {
+            padding: 3rem 0;
+            background-color: #fff;
+        }
+        
+        .fruit-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .fruit-image {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .fruit-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .fruit-info h2 {
+            color: #FF7F00;
+            margin-bottom: 1rem;
+        }
+        
+        .info-section {
+            margin-bottom: 2rem;
+        }
+        
+        .info-section h3 {
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .info-section ul {
+            list-style-position: inside;
+            margin-left: 1rem;
+        }
+        
+        .info-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a252f;
+            color: #fff;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Back to Home Button */
+        .back-home {
+            display: inline-block;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            margin-top: 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .back-home:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .fruit-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .fruit-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Banana - Nature's Energy Package</div>
+                <ul class="nav-links">
+                    <li><a href="/index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#">Fruits</a>
+                        <div class="dropdown-content">
+                            <a href="mango.html">Mango</a>
+                            <a href="jackfruit.html">Jackfruit</a>
+                            <a href="lychee.html">Lychee</a>
+                            <a href="jamun.html">Jamun</a>
+                            <a href="guava.html">Guava</a>
+                            <a href="custardapple.html">Custard Apple</a>
+                            <a href="banana.html">Banana</a>
+                            <a href="apple.html">Apple</a>
+                            <a href="kiwi.html">Kiwi</a>
+                            <a href="orange.html">Orange</a>
+                        </div>
+                    </li>
+                    <!-- <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li> -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Fruit Header -->
+    <section class="fruit-header">
+        <div class="container">
+            <h1>Banana - Nature's Energy Package</h1>
+            <p>A nutrient-dense tropical fruit enjoyed globally for its convenience and versatility</p>
+        </div>
+    </section>
+
+    <!-- Fruit Content -->
+    <section class="fruit-content">
+        <div class="container">
+            <div class="fruit-grid">
+                <div class="fruit-image">
+                    <img src="https://images.pexels.com/photos/365810/pexels-photo-365810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Banana">
+                </div>
+                <div class="fruit-info">
+                    <h2>About Bananas</h2>
+                    <p>Bananas (Musa spp.) are elongated, edible fruits produced by several kinds of large herbaceous flowering plants in the genus Musa. They are native to the tropical regions of Southeast Asia and Australia but are now cultivated throughout the tropics, making them one of the most widely consumed fruits worldwide.</p>
+                    <br>
+                    <p>In different languages, bananas are known as "Plátano" in Spanish, "Banane" in French and German, and "Kela" in Hindi. Botanically, the banana plant is not a tree but a large herb, with the stem consisting of tightly packed leaf sheaths that can grow up to 20-25 feet tall.</p>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Major Banana Varieties</h3>
+                <ul>
+                    <li><strong>Cavendish</strong> - The most common commercial variety globally, with a sweet taste and creamy texture</li>
+                    <li><strong>Lady Finger</strong> - Smaller and sweeter than Cavendish, also known as Sugar bananas</li>
+                    <li><strong>Red Banana</strong> - Sweeter than yellow bananas with a slight raspberry flavor and reddish-purple skin</li>
+                    <li><strong>Plantain</strong> - Starchier cooking bananas that are typically prepared like vegetables</li>
+                    <li><strong>Burro Banana</strong> - Squarish with a lemony flavor, somewhere between a regular banana and plantain</li>
+                    <li><strong>Manzano</strong> - Shorter and fatter with a slightly tangy, apple-like flavor when ripe</li>
+                    <li><strong>Blue Java</strong> - Known as the "Ice Cream banana" for its creamy texture and vanilla flavor</li>
+                </ul>
+            </div>
+            
+            <div class="info-section">
+                <h3>Nutritional Benefits</h3>
+                <p>Bananas are packed with essential nutrients and offer numerous health benefits:</p>
+                <ul>
+                    <li>Excellent source of potassium, essential for heart health and blood pressure regulation</li>
+                    <li>Rich in vitamin B6, which supports brain health and metabolism</li>
+                    <li>Good source of vitamin C, supporting immune function</li>
+                    <li>Contains dietary fiber, particularly pectin and resistant starch, aiding digestion</li>
+                    <li>Natural source of energy from carbohydrates, making them perfect for athletes</li>
+                    <li>Contains antioxidants such as dopamine and catechins</li>
+                    <li>Provides magnesium, which supports bone health and energy production</li>
+                    <li>Low in sodium and naturally fat-free</li>
+                </ul>
+                <p>The nutrition profile of bananas changes as they ripen - greener bananas contain more resistant starch, while riper bananas have more easily digestible sugars.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Cultural Significance</h3>
+                <p>Bananas have cultural importance in many regions:</p>
+                <ul>
+                    <li>Symbol of fertility and prosperity in many Asian cultures</li>
+                    <li>Used in religious ceremonies in Hindu and Buddhist traditions</li>
+                    <li>Featured in folk tales and proverbs across tropical regions</li>
+                    <li>Banana leaves are widely used as natural plates in South Asian cuisine</li>
+                    <li>Banana fibers are used for textiles and crafts in some cultures</li>
+                    <li>In comedy and entertainment, banana peels are classic symbols for slapstick humor</li>
+                    <li>The term "banana republic" originated from countries economically dependent on banana exports</li>
+                </ul>
+            </div>
+            
+            <div class="info-section">
+                <h3>Culinary Uses</h3>
+                <p>Bananas are incredibly versatile in culinary applications:</p>
+                <ul>
+                    <li><strong>Fresh Consumption</strong> - Eaten raw as a convenient snack</li>
+                    <li><strong>Baked Goods</strong> - Banana bread, muffins, pancakes, and cakes</li>
+                    <li><strong>Smoothies</strong> - Add creaminess and natural sweetness to blended drinks</li>
+                    <li><strong>Desserts</strong> - Bananas Foster, banana pudding, banana splits, and fritters</li>
+                    <li><strong>Dried Banana Chips</strong> - Popular snack in many countries</li>
+                    <li><strong>Plantain Dishes</strong> - Fried plantains, tostones, mofongo, and plantain curry</li>
+                    <li><strong>Fermented Products</strong> - Banana wine, beer, and vinegar in some cultures</li>
+                    <li><strong>Baby Food</strong> - Often one of the first solid foods introduced to infants</li>
+                </ul>
+                <p>In many tropical countries, bananas are used at all stages of ripeness, with green bananas cooked as a starchy vegetable and ripe ones used in sweet dishes.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Growing and Harvesting</h3>
+                <p>Bananas are grown year-round in tropical regions. The plants take about 9 months from planting to produce fruit, and each plant typically produces one bunch of bananas (called a "hand") before being cut down to allow new shoots to grow. Commercial bananas are harvested while still green and ripened artificially using ethylene gas once they reach their destination markets. This allows for better transportation and extends their shelf life.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Interesting Facts</h3>
+                <ul>
+                    <li>Bananas are botanically berries, not fruits</li>
+                    <li>Wild bananas contain large, hard seeds, unlike the seedless varieties we eat</li>
+                    <li>A cluster of bananas is called a "hand," while individual bananas are called "fingers"</li>
+                    <li>Banana plants are the world's largest herbaceous flowering plants</li>
+                    <li>India is the world's largest producer of bananas</li>
+                    <li>The banana we eat today, the Cavendish, is under threat from Panama disease and may need to be replaced</li>
+                    <li>Before the 1950s, a different variety called Gros Michel was the main commercial banana, but it was wiped out by disease</li>
+                    <li>Bananas are naturally slightly radioactive due to their potassium content</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="/index.html" class="back-home">Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <p>&copy; 2025 World Fruits. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

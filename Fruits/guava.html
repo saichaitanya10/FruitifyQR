@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guava - The Tropical Superfruit</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #eeeeed;
+            /* Added padding to account for fixed navbar */
+            padding-top: 33px;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Glass Navbar - Fixed and Reduced Height */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(180, 180, 180, 0.12);
+            backdrop-filter: blur(10px); /* Glass effect */
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 0; /* Reduced padding */
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px; /* Reduced height */
+        }
+        
+        .logo {
+            font-size: 1.4rem; /* Reduced font size */
+            font-weight: bold;
+            color: #3c2020;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            height: 100%;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .nav-links a {
+            color: black;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1rem; /* Reduced font size */
+            letter-spacing: 0.5px;
+            padding: 0 5px;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 60px; /* Match new navbar height */
+            background-color: rgba(44, 62, 80, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dropdown-content a {
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: rgba(26, 37, 47, 0.8);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        /* Fruit Page Content */
+        .fruit-header {
+            background-color: #FF6B6B;
+            color: #fff;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .fruit-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .fruit-content {
+            padding: 3rem 0;
+            background-color: #fff;
+        }
+        
+        .fruit-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .fruit-image {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .fruit-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .fruit-info h2 {
+            color: #FF7F00;
+            margin-bottom: 1rem;
+        }
+        
+        .info-section {
+            margin-bottom: 2rem;
+        }
+        
+        .info-section h3 {
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .info-section ul {
+            list-style-position: inside;
+            margin-left: 1rem;
+        }
+        
+        .info-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a252f;
+            color: #fff;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Back to Home Button */
+        .back-home {
+            display: inline-block;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            margin-top: 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .back-home:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .fruit-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .fruit-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Guava - The Tropical Superfruit</div>
+                <ul class="nav-links">
+                    <li><a href="/index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#">Fruits</a>
+                        <div class="dropdown-content">
+                            <a href="mango.html">Mango</a>
+                            <a href="jackfruit.html">Jackfruit</a>
+                            <a href="lychee.html">Lychee</a>
+                            <a href="jamun.html">Jamun</a>
+                            <a href="guava.html">Guava</a>
+                            <a href="custardapple.html">Custard Apple</a>
+                            <!-- <a href="chikoo.html">Chikoo</a> -->
+                            <a href="pomegranate.html">Pomegranate</a>
+                            <a href="banana.html">Banana</a>
+                            <a href="papaya.html">Papaya</a>
+                        </div>
+                    </li>
+                    <!-- <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li> -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Fruit Header -->
+    <section class="fruit-header">
+        <div class="container">
+            <h1>Guava - The Tropical Superfruit</h1>
+            <p>A nutrient-packed powerhouse with a distinctive aroma and taste</p>
+        </div>
+    </section>
+
+    <!-- Fruit Content -->
+    <section class="fruit-content">
+        <div class="container">
+            <div class="fruit-grid">
+                <div class="fruit-image">
+                    <img src="https://images.pexels.com/photos/28056894/pexels-photo-28056894/free-photo-of-a-basket-full-of-green-fruit-and-a-bowl-of-sauce.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Guava">
+                </div>
+                <div class="fruit-info">
+                    <h2>About Guava</h2>
+                    <p>Guava (Psidium guajava) is a tropical fruit native to Central America but has been cultivated in India for centuries. It's now widely grown across the country and is considered a naturalized fruit of India. With its distinctive aroma, sweet-tart flavor, and exceptional nutritional profile, guava has earned its nickname as a "superfruit."</p>
+                    <br>
+                    <p>Known as "Amrood" in Hindi, "Jama" in Telugu, "Koyya" in Tamil, and "Pera" in Malayalam, guava is prized not only for its delicious taste but also for its medicinal properties that have been recognized in traditional Indian medicine for generations.</p>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Varieties of Guava in India</h3>
+                <ul>
+                    <li><strong>Allahabad Safeda</strong> - The most popular variety with white flesh and few seeds</li>
+                    <li><strong>Lucknow 49</strong> - Known for its large size and excellent flavor</li>
+                    <li><strong>Lalit</strong> - A pink-fleshed variety with high vitamin C content</li>
+                    <li><strong>Apple Guava</strong> - Characterized by its apple-like crispness and sweetness</li>
+                    <li><strong>Arka Mridula</strong> - Developed by IIHR Bangalore, noted for its crisp texture</li>
+                    <li><strong>Red-fleshed</strong> - Several varieties with distinctive pink to red flesh</li>
+                </ul>
+            </div>
+            
+            <div class="info-section">
+                <h3>Nutritional Benefits</h3>
+                <p>Guava is often called a nutritional powerhouse for good reason:</p>
+                <ul>
+                    <li>One of the richest sources of Vitamin C (4 times more than oranges)</li>
+                    <li>High in dietary fiber that aids digestion</li>
+                    <li>Contains significant levels of antioxidants like lycopene and carotene</li>
+                    <li>Good source of potassium, which helps regulate blood pressure</li>
+                    <li>Rich in vitamin A for eye health and immune function</li>
+                    <li>Contains folate, important for pregnant women and cellular health</li>
+                    <li>Low glycemic index makes it suitable for people managing diabetes</li>
+                </ul>
+                <p>The entire fruit—including the skin—is edible and nutritious, though many prefer to eat only the inner flesh.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Cultural Significance</h3>
+                <p>In Indian culture, guava holds special significance:</p>
+                <ul>
+                    <li>It's considered an auspicious fruit often offered during religious ceremonies</li>
+                    <li>Guava leaves are used in traditional Ayurvedic medicine for treating various ailments</li>
+                    <li>In rural India, guava trees often mark property boundaries</li>
+                    <li>The tree's hardiness symbolizes resilience in Indian folklore</li>
+                    <li>During Autumn festivals, fresh guavas are often exchanged as gifts</li>
+                </ul>
+            </div>
+            
+            <div class="info-section">
+                <h3>Culinary Uses</h3>
+                <p>Guava is versatile in Indian cuisine:</p>
+                <ul>
+                    <li><strong>Fresh Consumption</strong> - Eaten raw, often with a sprinkle of salt and chili powder</li>
+                    <li><strong>Guava Chutney</strong> - A popular condiment made with raw guavas</li>
+                    <li><strong>Amrood ki Sabzi</strong> - A savory curry made from unripe guavas</li>
+                    <li><strong>Guava Cheese</strong> - A dense, sweet confection popular in Western India</li>
+                    <li><strong>Guava Halwa</strong> - A traditional sweet dish made from ripe guavas</li>
+                    <li><strong>Guava Juice and Nectar</strong> - Popular refreshing beverages</li>
+                    <li><strong>Guava Jelly</strong> - A translucent spread made from guava juice</li>
+                </ul>
+                <p>The leaves of the guava plant are also used to make tea, which is known for its medicinal properties.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Growing Season</h3>
+                <p>In India, guavas typically have two main fruiting seasons: the main season from August to September and a winter crop from December to March. In some regions with suitable climatic conditions, guavas can fruit throughout the year.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Interesting Facts</h3>
+                <ul>
+                    <li>Guava trees can produce fruit within 2-3 years of planting</li>
+                    <li>The wood of guava trees is used to make tools and small instruments</li>
+                    <li>A single guava contains more Vitamin C than a whole orange</li>
+                    <li>The fruit is sometimes called the "poor man's apple" because of its availability and affordability</li>
+                    <li>Guava leaves have natural antibacterial properties and are used in traditional medicine</li>
+                    <li>In some parts of India, guava twigs are used as natural toothbrushes</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="/index.html" class="back-home">Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <p>&copy; 2025 Indian Fruits. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
